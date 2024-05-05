@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Registration Form";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Registration Form</h1>
+    <form asp-controller="Register" asp-action="Submit" method="post">
+        <div class="form-group">
+            <label for="FirstName">First Name:</label>
+            <input type="text" class="form-control" id="FirstName" name="FirstName" required>
+        </div>
+        <div class="form-group">
+            <label for="LastName">Last Name:</label>
+            <input type="text" class="form-control" id="LastName" name="LastName" required>
+        </div>
+        <div class="form-group">
+            <label for="Sex">Sex:</label>
+            <select class="form-control" id="Sex" name="Sex">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Age">Age:</label>
+            <input type="number" class="form-control" id="Age" name="Age" required>
+        </div>
+        <div class="form-group">
+            <label for="State">State:</label>
+            <input type="text" class="form-control" id="State" name="State" required>
+        </div>
+        <div class="form-group">
+            <label for="EmailAddress">Email Address:</label>
+            <input type="email" class="form-control" id="EmailAddress" name="EmailAddress" required>
+        </div>
+        <div class="form-group">
+            <label for="Username">Username:</label>
+            <input type="text" class="form-control" id="Username" name="Username" required>
+        </div>
+        <div class="form-group">
+            <label for="Password">Password:</label>
+            <input type="password" class="form-control" id="Password" name="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
