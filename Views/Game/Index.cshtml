@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CST350.Models.CellModel>
+
+@{
+    ViewData["Title"] = "Minesweeper";
+    int DIM = ViewBag.DIM;
+}
+
+<div class="text-center">
+    <h2>Minesweeper</h2>
+</div>
+
+<form asp-action="LeftClick" class="d-flex flex-column justify-content-center">
+    @for (int i = 0; i < DIM; i++)
+    {
+        <div class="row d-flex justify-content-center">
+            @for (int j = 0; j < DIM; j++)
+            {
+                int ind = (DIM * i) + j;
+                CellModel cell = Model.ElementAt(ind);
+                string visited = cell.visited ? "visited" : "not-visited";
+
+                <button type="submit" value="@ind" name="ind" class="cell @visited">
+                    @if (cell.visited)
+                    {
+                        @if (cell.live)
+                        {
+                            <span>*</span>
+                        }
+                        else if (cell.numLiveNeighbors > 0)
+                        {
+                            <span>@cell.numLiveNeighbors</span>
+                        }
+                    }
+                    else
+                    {
+                        <span></span>
+                    }
+                </button>
+            }
+        </div>
+    }
+</form>
+
+<div class="d-flex justify-content-center p-2">
+    <form asp-action="Reset">
+        <button type="submit" class="btn btn-primary">Reset</button>
+    </form>
+</div>
+
