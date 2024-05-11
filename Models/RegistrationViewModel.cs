@@ -5,43 +5,46 @@ namespace CST350.Models
     public class RegistrationViewModel
     {
         [Required]
-        public string FirstName { get; set; }
+        public string username { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string password { get; set; }
 
         [Required]
-        public string Sex { get; set; }
+        public string firstname { get; set; }
 
         [Required]
-        public int Age { get; set; }
+        public string lastname { get; set; }
 
         [Required]
-        public string State { get; set; }
+        public bool sex { get; set; }
 
         [Required]
-        [EmailAddress]
-        public string EmailAddress { get; set; }
+        public int age { get; set; }
 
         [Required]
-        public string Username { get; set; }
+        public string state { get; set; }
 
-        [Required]
-        public string Password { get; set; }
+        public RegistrationViewModel() { }
 
-        public RegistrationViewModel ToEntity()
+        public RegistrationViewModel
+        (
+            string username,
+            string password,
+            string firstname,
+            string lastname,
+            bool sex,
+            int age,
+            string state
+        )
         {
-            return new RegistrationViewModel
-            {
-                FirstName = this.FirstName,
-                LastName = this.LastName,
-                Sex = this.Sex,
-                Age = this.Age,
-                State = this.State,
-                EmailAddress = this.EmailAddress,
-                Username = this.Username,
-                Password = this.Password
-            };
+            this.username = username;
+            this.password = password;
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.sex = sex;
+            this.age = age;
+            this.state = state;
         }
     }
 }

@@ -6,18 +6,17 @@ namespace CST350.Models
     public class LoginViewModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string username { get; set; }
 
         [Required]
-        public string Password { get; set; }
+        public string password { get; set; }
 
-        public LoginViewModel ToEntity()
+        public LoginViewModel() { }
+
+        public LoginViewModel(string username, string password)
         {
-            return new LoginViewModel
-            {
-                UserName = this.UserName,
-                Password = this.Password
-            };
+            this.username = username;
+            this.password = password;
         }
     }
 }
