@@ -23,11 +23,11 @@ namespace CST350.Services
 
         public bool HandleLeftClick(int ind)
         {
+            boardModel.floodFill(ind);
             if (boardModel.visit(ind) < 0)
             {
                 return false;
             }
-            boardModel.floodFill(ind);
             return true;
         }
 

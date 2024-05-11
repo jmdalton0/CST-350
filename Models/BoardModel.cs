@@ -5,13 +5,12 @@ namespace CST350.Models
 {
     public sealed class BoardModel
     {
-        private int FREQ = 15;
-        private int DIM = 16;
+        private int FREQ = 10;
+        private int DIM = 32;
 
         public int dim {  get; }
         public CellModel[] board { get; }
 
-        private int numVisited;
         private int numLive;
 
         private static BoardModel self;
@@ -20,7 +19,6 @@ namespace CST350.Models
         {
             this.dim = DIM;
             this.board = new CellModel[dim * dim];
-            this.numVisited = 0;
             this.numLive = dim * dim * FREQ / 100;
             init();
         }
@@ -77,7 +75,6 @@ namespace CST350.Models
                 return -1;
             }
             cell.visited = true;
-            numVisited++;
             return cell.numLiveNeighbors;
         }
 
@@ -115,8 +112,19 @@ namespace CST350.Models
 
         public void floodFill(int ind)
         {
+            if (ind < 0 || ind > board.Length - 1 || board[ind].visited)
+            {
+                return;
+            }
 
+            board[ind].visited = true;
+            if (board[ind].numLiveNeighbors == 0)
+            {
+                floodFill(ind + dim);
+                floodFill(ind - dim);
+                floodFill(ind + 1);
+                floodFill(ind - 1);
+            }
         }
-
     }
 }

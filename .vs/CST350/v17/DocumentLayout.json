@@ -46,8 +46,7 @@
               "RelativeToolTip": "Views\\Game\\Index.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACsAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-05-10T01:49:20.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T01:49:20.276Z"
             },
             {
               "$type": "Document",
@@ -59,8 +58,7 @@
               "RelativeToolTip": "Controllers\\GameController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T01:50:34.304Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T01:50:34.304Z"
             },
             {
               "$type": "Document",
@@ -70,7 +68,7 @@
               "RelativeDocumentMoniker": "Services\\GameService.cs",
               "ToolTip": "C:\\Users\\jmdal\\Projects\\CST350\\CST350\\Services\\GameService.cs",
               "RelativeToolTip": "Services\\GameService.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAqwB4AAAAXAAAA",
+              "ViewState": "AQIAABEAAAAAAAAAAAAqwBkAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T01:51:25.126Z",
               "EditorCaption": ""
@@ -83,7 +81,7 @@
               "RelativeDocumentMoniker": "Models\\BoardModel.cs",
               "ToolTip": "C:\\Users\\jmdal\\Projects\\CST350\\CST350\\Models\\BoardModel.cs",
               "RelativeToolTip": "Models\\BoardModel.cs",
-              "ViewState": "AQIAAGYAAAAAAAAAAAAgwHAAAAAMAAAA",
+              "ViewState": "AQIAAGsAAAAAAAAAAAAUwHgAAAAwAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T01:52:29.365Z",
               "EditorCaption": ""
@@ -98,8 +96,7 @@
               "RelativeToolTip": "Models\\CellModel.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T01:53:46.239Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T01:53:46.239Z"
             },
             {
               "$type": "Document",
@@ -111,8 +108,7 @@
               "RelativeToolTip": "wwwroot\\css\\site.css",
               "ViewState": "AQIAAA4AAAAAAAAAAAAYwBkAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-05-11T13:05:05.085Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-11T13:05:05.085Z"
             }
           ]
         }
