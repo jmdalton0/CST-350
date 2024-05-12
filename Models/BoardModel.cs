@@ -5,21 +5,23 @@ namespace CST350.Models
 {
     public sealed class BoardModel
     {
-        private int FREQ = 10;
-        private int DIM = 32;
+        private int FREQ = 5;
+        private int DIM = 16;
 
-        public int dim {  get; }
         public CellModel[] board { get; }
 
         private int numLive;
+        private int numDead;
+        private int numVisited;
 
         private static BoardModel self;
 
         private BoardModel()
         {
-            this.dim = DIM;
-            this.board = new CellModel[dim * dim];
-            this.numLive = dim * dim * FREQ / 100;
+            this.board = new CellModel[DIM * DIM];
+            this.numLive = DIM * DIM * FREQ / 100;
+            this.numDead = (DIM * DIM) - numLive;
+            this.numVisited = 0;
             init();
         }
 
@@ -39,14 +41,14 @@ namespace CST350.Models
 
         private int ind(int i, int j)
         {
-            return (dim * i) + j;
+            return (DIM * i) + j;
         }
 
         private void init()
         {
-            for (int i = 0; i < dim; i++)
+            for (int i = 0; i < DIM; i++)
             {
-                for (int j = 0; j < dim; j++)
+                for (int j = 0; j < DIM; j++)
                 {
                     this.board[ind(i, j)] = new CellModel();
                 }
@@ -54,7 +56,8 @@ namespace CST350.Models
 
             Random rand = new Random();
             List<int> notLive = new List<int>();
-            for (int i = 0; i < board.Length; i++) {
+            for (int i = 0; i < board.Length; i++)
+            {
                 notLive.Add(i);
             }
             for (int i = 0; i < numLive; i++)
@@ -67,35 +70,43 @@ namespace CST350.Models
             calcLiveNeighbors();
         }
 
-        public int visit(int ind)
+        public bool isWin()
         {
-            CellModel cell = this.board[ind];
-            if (cell.live)
+            return numVisited == numDead;
+        }
+
+        public bool visit(int ind)
+        {
+            if (!board[ind].visited)
             {
-                return -1;
+                board[ind].visited = true;
+                numVisited++;
             }
-            cell.visited = true;
-            return cell.numLiveNeighbors;
+            if (board[ind].live)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void visitAll()
         {
             for (int i = 0; i < board.Length; i++)
             {
-                board[i].visited = true;
+                visit(i);
             }
         }
 
         private void calcLiveNeighbors()
         {
-            for (int i = 0; i < dim; i++)
+            for (int i = 0; i < DIM; i++)
             {
-                for (int j = 0; j < dim; j++)
+                for (int j = 0; j < DIM; j++)
                 {
                     int prevRow = i > 0 ? -1 : 0;
                     int prevCol = j > 0 ? -1 : 0;
-                    int nextRow = i < dim - 1 ? 1 : 0;
-                    int nextCol = j < dim - 1 ? 1 : 0;
+                    int nextRow = i < DIM - 1 ? 1 : 0;
+                    int nextCol = j < DIM - 1 ? 1 : 0;
                     for (int u = prevRow; u <= nextRow; u++)
                     {
                         for (int v = prevCol; v <= nextCol; v++)
@@ -112,16 +123,25 @@ namespace CST350.Models
 
         public void floodFill(int ind)
         {
-            if (ind < 0 || ind > board.Length - 1 || board[ind].visited)
+            if (
+                ind < 0 ||
+                ind > board.Length - 1 ||
+                board[ind].visited ||
+                board[ind].live
+            )
             {
                 return;
             }
 
-            board[ind].visited = true;
+            visit(ind);
             if (board[ind].numLiveNeighbors == 0)
             {
-                floodFill(ind + dim);
-                floodFill(ind - dim);
+                floodFill(ind + DIM);
+                floodFill(ind + DIM - 1);
+                floodFill(ind + DIM + 1);
+                floodFill(ind - DIM);
+                floodFill(ind - DIM - 1);
+                floodFill(ind - DIM + 1);
                 floodFill(ind + 1);
                 floodFill(ind - 1);
             }

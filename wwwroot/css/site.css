@@ -22,15 +22,26 @@ body {
 }
 
 .cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 2rem;
     height: 2rem;
     border: 1px solid #eee;
 }
 
-.not-visited {
-    background: #bbb;
-}
-
 .visited {
     background: #ddd;
+}
+
+.win {
+    background: #70e88c;
+}
+
+.lose {
+    background: #fcbcbc;
+}
+
+.not-visited {
+    background: #bbb;
 }

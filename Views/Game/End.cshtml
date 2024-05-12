@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CST350.Models.CellModel>
+
+@{
+    ViewData["Title"] = "Game Over";
+    int DIM = (int)Math.Sqrt(Model.Count());
+    bool win = ViewBag.win;
+    string message = win ? "You Win!" : "You Lose!";
+}
+
+<div class="text-center">
+    <h2 style="height: 2rem">@message</h2>
+</div>
+
+<div class="d-flex flex-column justify-content-center">
+    @for (int i = 0; i < DIM; i++)
+    {
+        <div class="row d-flex justify-content-center">
+            @for (int j = 0; j < DIM; j++)
+            {
+                int ind = (DIM * i) + j;
+                CellModel cell = Model.ElementAt(ind);
+
+                @if (cell.live)
+                {
+                    @if (win)
+                    {
+                        <div class="cell win">
+                            <span>*</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="cell lose">
+                            <span>*</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="cell visited">
+                        @if (cell.numLiveNeighbors > 0)
+                        {
+                            <span>@cell.numLiveNeighbors</span>
+                        }
+                        else
+                        {
+                            <span></span>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
+
+<div class="d-flex justify-content-center p-2">
+    <form asp-action="Reset">
+        <button type="submit" class="btn btn-primary">Reset</button>
+    </form>
+</div>
+
+

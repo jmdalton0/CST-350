@@ -8,7 +8,6 @@ namespace CST350.Controllers
         public IActionResult Index()
         {
             GameService gameService = new GameService();
-            ViewBag.DIM = gameService.GetDim();
             return View(gameService.Display());
         }
 
@@ -18,6 +17,10 @@ namespace CST350.Controllers
             if (!gameService.HandleLeftClick(ind))
             {
                 return RedirectToAction("Lose");
+            }
+            if (gameService.IsWin())
+            {
+                return RedirectToAction("Win");
             }
             return RedirectToAction("Index");
         }
@@ -29,8 +32,17 @@ namespace CST350.Controllers
         public IActionResult Lose()
         {
             GameService gameService = new GameService();
-            gameService.Lose();
-            return RedirectToAction("Index");
+            gameService.End();
+            ViewBag.win = false;
+            return View("End", gameService.Display());
+        }
+
+        public IActionResult Win()
+        {
+            GameService gameService = new GameService();
+            gameService.End();
+            ViewBag.win = true;
+            return View("End", gameService.Display());
         }
 
         public IActionResult Reset()

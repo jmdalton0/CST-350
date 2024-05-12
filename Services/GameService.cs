@@ -11,11 +11,6 @@ namespace CST350.Services
             this.boardModel = BoardModel.Instance();
         }
 
-        public int GetDim()
-        {
-            return boardModel.dim;
-        }
-
         public IEnumerable<CellModel> Display()
         {
             return boardModel.board;
@@ -24,14 +19,15 @@ namespace CST350.Services
         public bool HandleLeftClick(int ind)
         {
             boardModel.floodFill(ind);
-            if (boardModel.visit(ind) < 0)
-            {
-                return false;
-            }
-            return true;
+            return boardModel.visit(ind);
         }
 
-        public void Lose()
+        public bool IsWin()
+        {
+            return boardModel.isWin();
+        }
+
+        public void End()
         {
             boardModel.visitAll();
         }

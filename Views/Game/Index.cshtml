@@ -2,11 +2,11 @@
 
 @{
     ViewData["Title"] = "Minesweeper";
-    int DIM = ViewBag.DIM;
+    int DIM = (int) Math.Sqrt(Model.Count());
 }
 
 <div class="text-center">
-    <h2>Minesweeper</h2>
+    <h2 style="height: 2rem">Minesweeper</h2>
 </div>
 
 <form asp-action="LeftClick" class="d-flex flex-column justify-content-center">
@@ -18,8 +18,9 @@
                 int ind = (DIM * i) + j;
                 CellModel cell = Model.ElementAt(ind);
                 string visited = cell.visited ? "visited" : "not-visited";
+                string live = cell.live ? "live" : "";
 
-                <button type="submit" value="@ind" name="ind" class="cell @visited">
+                <button type="submit" value="@ind" name="ind" class="cell @visited @live">
                     @if (cell.visited)
                     {
                         @if (cell.live)
