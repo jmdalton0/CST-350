@@ -1,4 +1,11 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+$(function () {
+    console.log("Page is ready");
 
-// Write your JavaScript code.
+    // Add timestamp
+    var timestampDiv = $("#timestamp");
+    setInterval(function () {
+        var now = new Date();
+        timestampDiv.text("Last updated: " + now.toLocaleString());
+    }, 1000); // Update every second
+
+});
