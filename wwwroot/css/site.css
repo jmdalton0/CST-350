@@ -27,20 +27,23 @@ body {
     align-items: center;
     width: 2rem;
     height: 2rem;
-    background: #bbb;
     border: 1px solid #eee;
+}
+
+.not-visited {
+    background: #bbb;
 }
 
 .visited {
     background: #ddd;
 }
 
-.win {
-    background: #70e88c;
+.live {
+    background: #fcbcbc;
 }
 
-.lose {
-    background: #fcbcbc;
+.flagged {
+    background: #90b6c3;
 }
 
 .timestamp {
@@ -51,3 +54,6 @@ body {
     top: 10rem;
 }
 
+#message {
+    margin-bottom: 1rem;
+}

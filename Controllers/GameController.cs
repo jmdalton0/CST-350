@@ -22,6 +22,11 @@ namespace CST350.Controllers
             return PartialView("Board", service.Display());
         }
 
+        public string Message()
+        {
+            return service.Message();
+        }
+
         public void Reset()
         {
             service.Reset();
@@ -30,6 +35,11 @@ namespace CST350.Controllers
         public void HandleLeftClick(int ind)
         {
             service.HandleLeftClick(ind);
+        }
+
+        public void HandleRightClick(int ind)
+        {
+            service.HandleRightClick(ind);
         }
 
     }

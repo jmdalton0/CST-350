@@ -14,10 +14,32 @@
             {
                 int ind = (DIM * i) + j;
                 CellModel cell = Model.ElementAt(ind);
-                string visited = cell.visited ? "visited" : "";
-                string live = cell.live ? "live" : "";
 
-                <button onclick="leftClick(@ind)" oncontextmenu="rightClick(@ind)" class="cell @visited @live">
+                string state = "";
+                if (cell.visited)
+                {
+                    if (cell.live)
+                    {
+                        state = "live";
+                    }
+                    else
+                    {
+                        state = "visited";
+                    }
+                }
+                else
+                {
+                    if (cell.flagged)
+                    {
+                        state = "flagged";
+                    }
+                    else
+                    {
+                        state = "not-visited";
+                    }
+                }
+
+                <button onclick="leftClick(@ind)" oncontextmenu="rightClick(event, @ind)" class="cell @state">
                     @if (cell.visited)
                     {
                         @if (cell.live)
@@ -33,7 +55,7 @@
                     {
                         @if (cell.flagged)
                         {
-                            <span>7</span>
+                            <span>F</span>
                         }
                         else
                         {

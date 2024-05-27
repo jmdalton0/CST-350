@@ -1,5 +1,5 @@
 $(function () {
-    console.log("Page is ready");
+    //console.log("Page is ready");
 
     // Add timestamp
     var timestampDiv = $("#timestamp");
@@ -11,13 +11,17 @@ $(function () {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    //display();
+    display();
 });
 
 async function display() {
-    let res = await fetch('/Game/Display');
-    let board = await res.text();
-    document.getElementById('board').innerHTML = board;
+    let res = await fetch('/Game/Message');
+    let data = await res.text();
+    document.getElementById('message').innerHTML = data;
+
+    res = await fetch('/Game/Display');
+    data = await res.text();
+    document.getElementById('board').innerHTML = data;
 }
 
 async function reset() {
@@ -26,12 +30,13 @@ async function reset() {
 }
 
 async function leftClick(ind) {
-    console.log(ind);
     await fetch('/Game/HandleLeftClick?ind=' + ind);
     display();
 }
 
-async function rightClick(id) {
+async function rightClick(e, ind) {
+    e.preventDefault();
+    await fetch('/Game/HandleRightClick?ind=' + ind);
     display();
 }
 

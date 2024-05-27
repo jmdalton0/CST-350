@@ -10,6 +10,7 @@ namespace CST350.Models
 
         public CellModel[] board { get; }
 
+        private bool loss;
         private int numLive;
         private int numDead;
         private int numVisited;
@@ -19,6 +20,7 @@ namespace CST350.Models
         private BoardModel()
         {
             this.board = new CellModel[DIM * DIM];
+            this.loss = false;
             this.numLive = DIM * DIM * FREQ / 100;
             this.numDead = (DIM * DIM) - numLive;
             this.numVisited = 0;
@@ -39,9 +41,20 @@ namespace CST350.Models
             self = new BoardModel();
         }
 
-        public bool IsWin()
+        public string Message()
         {
-            return numVisited == numDead;
+            if (loss)
+            {
+                return "You Lose";
+            }
+            else if (numVisited == numDead)
+            {
+                return "You Win";
+            }
+            else
+            {
+                return "Click a Square to Sweep it";
+            }
         }
 
         public void Visit(int ind)
@@ -56,9 +69,11 @@ namespace CST350.Models
             }
 
             board[ind].visited = true;
+            numVisited++;
 
             if (board[ind].live)
             {
+                loss = true;
                 visitAll();
             }
 
@@ -66,6 +81,16 @@ namespace CST350.Models
             {
                 floodFill(ind);
             }
+
+            if (numVisited == numDead)
+            {
+                flagAll();
+            }
+        }
+
+        public void Flag(int ind)
+        {
+            board[ind].flagged = !board[ind].flagged;
         }
 
         private int ind(int i, int j)
@@ -77,6 +102,17 @@ namespace CST350.Models
             for (int i = 0; i < board.Length; i++)
             {
                 Visit(i);
+            }
+        }
+
+        private void flagAll()
+        {
+            for (int i = 0; i < board.Length; i++)
+            {
+                if (board[i].live)
+                {
+                    board[i].flagged = true;
+                }
             }
         }
 

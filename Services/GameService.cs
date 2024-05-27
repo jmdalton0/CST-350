@@ -15,6 +15,11 @@ namespace CST350.Services
             return boardModel.board;
         }
 
+        public string Message()
+        {
+            return boardModel.Message();
+        }
+
         public void Reset()
         {
             boardModel.Reset();
@@ -22,6 +27,11 @@ namespace CST350.Services
         public void HandleLeftClick(int ind)
         {
             boardModel.Visit(ind);
+        }
+
+        public void HandleRightClick(int ind)
+        {
+            boardModel.Flag(ind);
         }
 
     }
