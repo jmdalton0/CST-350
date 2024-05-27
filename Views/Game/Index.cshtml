@@ -1,52 +1,16 @@
-﻿@model IEnumerable<CST350.Models.CellModel>
-
-@{
+﻿@{
     ViewData["Title"] = "Minesweeper";
-    int DIM = (int) Math.Sqrt(Model.Count());
 }
 
 <div class="text-center">
     <h2 style="height: 2rem">Minesweeper</h2>
 </div>
 
-<div id="timestamp">Last update: Never</div>
+<p id="page-timestamp" class="timestamp">Page Load: @DateTime.Now</p>
 
-<form asp-action="LeftClick" class="d-flex flex-column justify-content-center">
-    @for (int i = 0; i < DIM; i++)
-    {
-        <div class="row d-flex justify-content-center">
-            @for (int j = 0; j < DIM; j++)
-            {
-                int ind = (DIM * i) + j;
-                CellModel cell = Model.ElementAt(ind);
-                string visited = cell.visited ? "visited" : "not-visited";
-                string live = cell.live ? "live" : "";
-
-                <button type="submit" value="@ind" name="ind" class="cell @visited @live">
-                    @if (cell.visited)
-                    {
-                        @if (cell.live)
-                        {
-                            <span>*</span>
-                        }
-                        else if (cell.numLiveNeighbors > 0)
-                        {
-                            <span>@cell.numLiveNeighbors</span>
-                        }
-                    }
-                    else
-                    {
-                        <span></span>
-                    }
-                </button>
-            }
-        </div>
-    }
-</form>
+<div id="board"></div>
 
 <div class="d-flex justify-content-center p-2">
-    <form asp-action="Reset">
-        <button type="submit" class="btn btn-primary">Reset</button>
-    </form>
+    <button onclick="reset()" class="btn btn-primary">Reset</button>
 </div>
 

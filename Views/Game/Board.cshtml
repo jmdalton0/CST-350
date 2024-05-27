@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CST350.Models.CellModel>
+
+@{
+    int DIM = (int)Math.Sqrt(Model.Count());
+}
+
+<p id="board-timestamp" class="timestamp">Board Load: @DateTime.Now</p>
+
+<div class="d-flex flex-column justify-content-center">
+    @for (int i = 0; i < DIM; i++)
+    {
+        <div class="row d-flex justify-content-center">
+            @for (int j = 0; j < DIM; j++)
+            {
+                int ind = (DIM * i) + j;
+                CellModel cell = Model.ElementAt(ind);
+                string visited = cell.visited ? "visited" : "";
+                string live = cell.live ? "live" : "";
+
+                <button onclick="leftClick(@ind)" oncontextmenu="rightClick(@ind)" class="cell @visited @live">
+                    @if (cell.visited)
+                    {
+                        @if (cell.live)
+                        {
+                            <span>*</span>
+                        }
+                        else if (cell.numLiveNeighbors > 0)
+                        {
+                            <span>@cell.numLiveNeighbors</span>
+                        }
+                    }
+                    else
+                    {
+                        @if (cell.flagged)
+                        {
+                            <span>7</span>
+                        }
+                        else
+                        {
+                            <span></span>
+                        }
+                    }
+                </button>
+            }
+        </div>
+    }
+</div>
+

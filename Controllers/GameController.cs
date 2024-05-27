@@ -5,51 +5,32 @@ namespace CST350.Controllers
 {
     public class GameController : Controller
     {
+        private GameService service;
+
+        public GameController()
+        {
+            this.service = new GameService();
+        }
+
         public IActionResult Index()
         {
-            GameService gameService = new GameService();
-            return View(gameService.Display());
+            return View();
         }
 
-        public IActionResult LeftClick(int ind)
+        public IActionResult Display()
         {
-            GameService gameService = new GameService();
-            if (!gameService.HandleLeftClick(ind))
-            {
-                return RedirectToAction("Lose");
-            }
-            if (gameService.IsWin())
-            {
-                return RedirectToAction("Win");
-            }
-            return RedirectToAction("Index");
+            return PartialView("Board", service.Display());
         }
 
-        public IActionResult RightClick(int ind) {
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Lose()
+        public void Reset()
         {
-            GameService gameService = new GameService();
-            gameService.End();
-            ViewBag.win = false;
-            return View("End", gameService.Display());
+            service.Reset();
         }
 
-        public IActionResult Win()
+        public void HandleLeftClick(int ind)
         {
-            GameService gameService = new GameService();
-            gameService.End();
-            ViewBag.win = true;
-            return View("End", gameService.Display());
+            service.HandleLeftClick(ind);
         }
 
-        public IActionResult Reset()
-        {
-            GameService gameService = new GameService();
-            gameService.Reset();
-            return RedirectToAction("Index");
-        }
     }
 }

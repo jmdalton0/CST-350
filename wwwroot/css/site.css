@@ -27,6 +27,7 @@ body {
     align-items: center;
     width: 2rem;
     height: 2rem;
+    background: #bbb;
     border: 1px solid #eee;
 }
 
@@ -42,6 +43,11 @@ body {
     background: #fcbcbc;
 }
 
-.not-visited {
-    background: #bbb;
+.timestamp {
+    position: fixed;
 }
+
+#board-timestamp {
+    top: 10rem;
+}
+

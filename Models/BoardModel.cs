@@ -5,8 +5,8 @@ namespace CST350.Models
 {
     public sealed class BoardModel
     {
-        private int FREQ = 5;
-        private int DIM = 16;
+        private const int FREQ = 5;
+        private const int DIM = 16;
 
         public CellModel[] board { get; }
 
@@ -34,14 +34,50 @@ namespace CST350.Models
             return self;
         }
 
-        public void reset()
+        public void Reset()
         {
             self = new BoardModel();
+        }
+
+        public bool IsWin()
+        {
+            return numVisited == numDead;
+        }
+
+        public void Visit(int ind)
+        {
+            if (
+                ind < 0 ||
+                ind > board.Length - 1 ||
+                board[ind].visited
+            )
+            {
+                return;
+            }
+
+            board[ind].visited = true;
+
+            if (board[ind].live)
+            {
+                visitAll();
+            }
+
+            if (board[ind].numLiveNeighbors == 0)
+            {
+                floodFill(ind);
+            }
         }
 
         private int ind(int i, int j)
         {
             return (DIM * i) + j;
+        }
+        private void visitAll()
+        {
+            for (int i = 0; i < board.Length; i++)
+            {
+                Visit(i);
+            }
         }
 
         private void init()
@@ -70,33 +106,6 @@ namespace CST350.Models
             calcLiveNeighbors();
         }
 
-        public bool isWin()
-        {
-            return numVisited == numDead;
-        }
-
-        public bool visit(int ind)
-        {
-            if (!board[ind].visited)
-            {
-                board[ind].visited = true;
-                numVisited++;
-            }
-            if (board[ind].live)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public void visitAll()
-        {
-            for (int i = 0; i < board.Length; i++)
-            {
-                visit(i);
-            }
-        }
-
         private void calcLiveNeighbors()
         {
             for (int i = 0; i < DIM; i++)
@@ -121,29 +130,21 @@ namespace CST350.Models
             }
         }
 
-        public void floodFill(int ind)
+        private void floodFill(int ind)
         {
-            if (
-                ind < 0 ||
-                ind > board.Length - 1 ||
-                board[ind].visited ||
-                board[ind].live
-            )
+            Visit(ind + DIM);
+            Visit(ind - DIM);
+            if (ind % DIM > 0)
             {
-                return;
+                Visit(ind - 1);
+                Visit(ind + DIM - 1);
+                Visit(ind - DIM - 1);
             }
-
-            visit(ind);
-            if (board[ind].numLiveNeighbors == 0)
+            if (ind % DIM < DIM - 1)
             {
-                floodFill(ind + DIM);
-                floodFill(ind + DIM - 1);
-                floodFill(ind + DIM + 1);
-                floodFill(ind - DIM);
-                floodFill(ind - DIM - 1);
-                floodFill(ind - DIM + 1);
-                floodFill(ind + 1);
-                floodFill(ind - 1);
+                Visit(ind + 1);
+                Visit(ind + DIM + 1);
+                Visit(ind - DIM + 1);
             }
         }
     }

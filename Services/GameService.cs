@@ -1,5 +1,4 @@
 ﻿using CST350.Models;
-using Microsoft.Identity.Client;
 
 namespace CST350.Services
 {
@@ -16,25 +15,14 @@ namespace CST350.Services
             return boardModel.board;
         }
 
-        public bool HandleLeftClick(int ind)
-        {
-            boardModel.floodFill(ind);
-            return boardModel.visit(ind);
-        }
-
-        public bool IsWin()
-        {
-            return boardModel.isWin();
-        }
-
-        public void End()
-        {
-            boardModel.visitAll();
-        }
-
         public void Reset()
         {
-            boardModel.reset();
+            boardModel.Reset();
         }
+        public void HandleLeftClick(int ind)
+        {
+            boardModel.Visit(ind);
+        }
+
     }
 }
