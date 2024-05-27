@@ -62,7 +62,8 @@ namespace CST350.Models
             if (
                 ind < 0 ||
                 ind > board.Length - 1 ||
-                board[ind].visited
+                board[ind].visited ||
+                board[ind].flagged
             )
             {
                 return;
@@ -101,7 +102,8 @@ namespace CST350.Models
         {
             for (int i = 0; i < board.Length; i++)
             {
-                Visit(i);
+                board[i].visited = true;
+                board[i].flagged = false;
             }
         }
 
