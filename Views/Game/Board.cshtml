@@ -12,56 +12,43 @@
         <div class="row d-flex justify-content-center">
             @for (int j = 0; j < DIM; j++)
             {
+                string cellClass = "";
+                string cellData = "";
+
                 int ind = (DIM * i) + j;
                 CellModel cell = Model.ElementAt(ind);
-
-                string state = "";
                 if (cell.visited)
                 {
                     if (cell.live)
                     {
-                        state = "live";
+                        cellClass = "live";
+                        cellData = "*";
                     }
                     else
                     {
-                        state = "visited";
+                        cellClass = "visited";
+                        if (cell.numLiveNeighbors > 0)
+                        {
+                            cellData = cell.numLiveNeighbors.ToString();
+                        }
                     }
                 }
                 else
                 {
                     if (cell.flagged)
                     {
-                        state = "flagged";
+                        cellClass = "flagged";
+                        cellData = "F";
                     }
                     else
                     {
-                        state = "not-visited";
+                        cellClass = "not-visited";
+                        cellData = "";
                     }
                 }
 
-                <button onclick="leftClick(@ind)" oncontextmenu="rightClick(event, @ind)" class="cell @state">
-                    @if (cell.visited)
-                    {
-                        @if (cell.live)
-                        {
-                            <span>*</span>
-                        }
-                        else if (cell.numLiveNeighbors > 0)
-                        {
-                            <span>@cell.numLiveNeighbors</span>
-                        }
-                    }
-                    else
-                    {
-                        @if (cell.flagged)
-                        {
-                            <span>F</span>
-                        }
-                        else
-                        {
-                            <span></span>
-                        }
-                    }
+                <button onclick="leftClick(@ind)" oncontextmenu="rightClick(event, @ind)" class="cell @cellClass">
+                    <span>@cellData</span>
                 </button>
             }
         </div>
