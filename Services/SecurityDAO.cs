@@ -10,7 +10,7 @@ namespace CST350.Services
         public bool Create(RegistrationViewModel model)
         {
             string sql = "INSERT INTO dbo.Users (firstname, lastname, sex, age, state, email, username, password)";
-            sql += "VALUES('@FIRSTNAME', '@LASTNAME', '@SEX', '@AGE', '@STATE', '@EMAIL', '@USERNAME', '@PASSWORD');";
+            sql += "VALUES ('@FIRSTNAME', '@LASTNAME', '@SEX', '@AGE', '@STATE', '@EMAIL', '@USERNAME', '@PASSWORD');";
 
             using (SqlConnection conn = new SqlConnection(connString))
             {

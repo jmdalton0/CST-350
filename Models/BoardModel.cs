@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Net;
+using System.Text;
 
 namespace CST350.Models
 {
@@ -39,6 +40,29 @@ namespace CST350.Models
         public void Reset()
         {
             self = new BoardModel();
+        }
+
+        public string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < board.Length; i++)
+            {
+                sb.Append("|");
+                if (board[i].live)
+                {
+                    sb.Append("L");
+                }
+                if (board[i].flagged)
+                {
+                    sb.Append("F");
+                }
+                if (board[i].visited)
+                {
+                    sb.Append("V");
+                }
+            }
+            sb.Append("E");
+            return sb.ToString();
         }
 
         public string Message()

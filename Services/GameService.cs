@@ -27,6 +27,8 @@ namespace CST350.Services
         public void HandleLeftClick(int ind)
         {
             boardModel.Visit(ind);
+            GameDAO gameDAO = new GameDAO();
+            gameDAO.Create(boardModel);
         }
 
         public void HandleRightClick(int ind)
