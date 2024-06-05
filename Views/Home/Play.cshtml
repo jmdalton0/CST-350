@@ -1,0 +1,23 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Play";
+}
+
+<div class="text-center">
+    <h2 id="message" style="height: 2rem">Click a Square to Sweep It</h2>
+</div>
+
+<div id="board"></div>
+
+<div class="d-flex justify-content-center p-2">
+    <button onclick="newGame()" class="btn btn-primary">New Game</button>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (@Model > 0) {
+            getGame(@Model);
+        }
+    });
+</script>

@@ -4,37 +4,58 @@ namespace CST350.Services
 {
     public class GameService
     {
-        private BoardModel boardModel;
+        private GameModel gameModel;
+        private GameDAO gameDAO;
 
         public GameService() {
-            this.boardModel = BoardModel.Instance();
+            this.gameModel = new GameModel();
+            this.gameDAO = new GameDAO();
         }
 
-        public IEnumerable<CellModel> Display()
+        public GameService(GameModel gameModel)
         {
-            return boardModel.board;
+            this.gameModel = gameModel;
+            this.gameDAO = new GameDAO();
+        }
+        public GameModel NewGame()
+        {
+            gameDAO.Create(gameModel);
+            return gameModel;
         }
 
-        public string Message()
+        public List<GameModel> AllGames()
         {
-            return boardModel.Message();
+            return gameDAO.AllGames();
         }
 
-        public void Reset()
+        public GameModel OneGame(int id)
         {
-            boardModel.Reset();
-        }
-        public void HandleLeftClick(int ind)
-        {
-            boardModel.Visit(ind);
-            GameDAO gameDAO = new GameDAO();
-            gameDAO.Create(boardModel);
+            return gameDAO.GetById(id);
         }
 
-        public void HandleRightClick(int ind)
+        public void Delete(int id)
         {
-            boardModel.Flag(ind);
+            gameDAO.Delete(id);
         }
 
+        public GameModel LeftClick(int ind)
+        {
+            gameModel.Visit(ind);
+            if (gameDAO.GetById(gameModel.id) != null)
+            {
+                gameDAO.Update(gameModel);
+            }
+            return gameModel;
+        }
+
+        public GameModel RightClick(int ind)
+        {
+            gameModel.Flag(ind);
+            if (gameDAO.GetById(gameModel.id) != null)
+            {
+                gameDAO.Update(gameModel);
+            }
+            return gameModel;
+        }
     }
 }

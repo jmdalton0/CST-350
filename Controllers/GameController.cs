@@ -1,45 +1,58 @@
-﻿using CST350.Services;
+﻿using CST350.Models;
+using CST350.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CST350.Controllers
 {
-    public class GameController : Controller
+
+    [ApiController]
+    [Route("[controller]")]
+    public class GameController : ControllerBase 
     {
-        private GameService service;
+        GameService service;
 
         public GameController()
         {
             this.service = new GameService();
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public ActionResult<IEnumerable<GameModel>> Index()
         {
-            return View();
+            return service.AllGames();
         }
 
-        public IActionResult Display()
+        [HttpGet("{id}")]
+        public ActionResult<GameModel> OneGame(int id)
         {
-            return PartialView("Board", service.Display());
+            return service.OneGame(id);
         }
 
-        public string Message()
+        [HttpDelete("{id}")]
+        public EmptyResult Delete(int id)
         {
-            return service.Message();
+            service.Delete(id);
+            return new EmptyResult();
         }
 
-        public void Reset()
+        [HttpGet("new")]
+        public ActionResult<GameModel> NewGame()
         {
-            service.Reset();
+            return service.NewGame();
         }
 
-        public void HandleLeftClick(int ind)
+        [HttpPost("leftClick")]
+        public ActionResult<GameModel> LeftClick(int ind, GameModel gameModel)
         {
-            service.HandleLeftClick(ind);
+            this.service = new GameService(gameModel);
+            return service.LeftClick(ind);
         }
 
-        public void HandleRightClick(int ind)
+        [HttpPost("rightCLick")]
+        public ActionResult<GameModel> rightClick(int ind, GameModel gameModel)
         {
-            service.HandleRightClick(ind);
+            this.service = new GameService(gameModel);
+            return service.RightClick(ind);
         }
 
     }

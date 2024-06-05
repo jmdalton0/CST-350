@@ -18,6 +18,16 @@ namespace CST350.Controllers
             return View();
         }
 
+        public IActionResult Play(int id)
+        {
+            return View(id);
+        }
+
+        public IActionResult Load()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
